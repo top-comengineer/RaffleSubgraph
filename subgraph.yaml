@@ -6,7 +6,7 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: RaffleFactory
-    network: Polygon
+    network: matic
     source:
       address: '0x453F1e6Dad213CA096b8470d4cE2d84743903d05'
       abi: RaffleFactory
@@ -33,7 +33,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Raffle
-    network: Polygon
+    network: matic
     source:
       abi: Raffle
     mapping:
