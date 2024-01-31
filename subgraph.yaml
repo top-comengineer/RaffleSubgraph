@@ -1,0 +1,56 @@
+specVersion: 0.0.4
+description: Raffle Game Subgraph.
+repository: https://github.com/top-comengineer/RaffleSubgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RaffleFactory
+    network: polygon
+    source:
+      address: '0x453F1e6Dad213CA096b8470d4cE2d84743903d05'
+      abi: RaffleFactory
+      startBlock: 48714930
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/factory.ts
+      entities:
+        - RaffleFactory
+        - Raffle
+        - Token
+        - Mint
+        - Transaction
+      abis:
+        - name: RaffleFactory
+          file: ./abis/RaffleFactory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: RaffleCreated(indexed address,indexed address,address)
+          handler: handleRaffleCreated
+templates:
+  - kind: ethereum/contract
+    name: Raffle
+    network: polygon
+    source:
+      abi: Raffle
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/core.ts
+      entities:
+        - Raffle
+        - Token
+        - Mint
+        - Transaction
+      abis:
+        - name: Raffle
+          file: ./abis/Raffle.json
+        - name: RaffleFactory
+          file: ./abis/RaffleFactory.json
+      eventHandlers:
+        - event: TicketSold(indexed address,uint256)
+          handler: handleTicketSold

@@ -1,0 +1,301 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_linkAddress", "type": "address" },
+      { "internalType": "address", "name": "_vrfAddress", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  { "inputs": [], "name": "InvalidInput", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "raffleContract",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "createdBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "paymentToken",
+        "type": "address"
+      }
+    ],
+    "name": "RaffleCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "symbol", "type": "string" },
+      {
+        "internalType": "contract IERC20",
+        "name": "paymentToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "feeCollectionWallet",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20[]",
+        "name": "prizeTokens",
+        "type": "address[]"
+      },
+      { "internalType": "uint96", "name": "ticketPrice", "type": "uint96" },
+      { "internalType": "uint32", "name": "maxSupply", "type": "uint32" },
+      { "internalType": "uint32", "name": "startTime", "type": "uint32" },
+      { "internalType": "uint32", "name": "endTime", "type": "uint32" },
+      { "internalType": "uint8", "name": "adminFeeFraction", "type": "uint8" },
+      { "internalType": "uint8[]", "name": "prizeSplits", "type": "uint8[]" },
+      {
+        "internalType": "bool",
+        "name": "shouldPayoutRemainingPaymentToken",
+        "type": "bool"
+      }
+    ],
+    "name": "createRaffle",
+    "outputs": [
+      { "internalType": "address", "name": "raffleAddress", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRaffles",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "raffleContract",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "paymentToken",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20[]",
+            "name": "prizeTokens",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "linkBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "vrfRequestId",
+            "type": "uint256"
+          },
+          { "internalType": "string", "name": "name", "type": "string" },
+          { "internalType": "string", "name": "symbol", "type": "string" },
+          {
+            "internalType": "uint256",
+            "name": "totalSupply",
+            "type": "uint256"
+          },
+          { "internalType": "uint96", "name": "ticketPrice", "type": "uint96" },
+          { "internalType": "uint32", "name": "maxSupply", "type": "uint32" },
+          { "internalType": "uint32", "name": "startTime", "type": "uint32" },
+          { "internalType": "uint32", "name": "endTime", "type": "uint32" },
+          { "internalType": "uint32", "name": "createdAt", "type": "uint32" },
+          {
+            "internalType": "uint8",
+            "name": "adminFeeFraction",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8[]",
+            "name": "prizeSplits",
+            "type": "uint8[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+              },
+              { "internalType": "address", "name": "wallet", "type": "address" }
+            ],
+            "internalType": "struct Winner[]",
+            "name": "winners",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "address",
+            "name": "feeCollectionWallet",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "paysOutRemainingPaymentTokens",
+            "type": "bool"
+          },
+          { "internalType": "bool", "name": "saleActive", "type": "bool" },
+          { "internalType": "bool", "name": "readyToPrepare", "type": "bool" },
+          {
+            "internalType": "bool",
+            "name": "readyToPickWinners",
+            "type": "bool"
+          },
+          { "internalType": "bool", "name": "hasWinners", "type": "bool" },
+          { "internalType": "bool", "name": "isStopped", "type": "bool" }
+        ],
+        "internalType": "struct RaffleEntry[]",
+        "name": "raffleEntries",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "linkAddress",
+    "outputs": [
+      { "internalType": "contract IERC20", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract Raffle", "name": "raffle", "type": "address" }
+    ],
+    "name": "pickWinnersForRaffle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract Raffle",
+        "name": "raffle",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "callbackGasLimit",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint16",
+        "name": "requestConfirmations",
+        "type": "uint16"
+      }
+    ],
+    "name": "preparePickWinnersForRaffle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "raffles",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract Raffle", "name": "raffle", "type": "address" }
+    ],
+    "name": "stopSaleForRaffle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vrfAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract Raffle", "name": "raffle", "type": "address" }
+    ],
+    "name": "withdrawLinkFromRaffle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract Raffle",
+        "name": "raffle",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20[]",
+        "name": "tokens",
+        "type": "address[]"
+      }
+    ],
+    "name": "withdrawTokensFromRaffle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
