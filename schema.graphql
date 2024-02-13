@@ -1,13 +1,12 @@
-type RaffleFactory @entity {
-  # factory address
-  id: ID!
-  raffles: [Raffle!]! @derivedFrom (field: "raffleFactory")
-}
-
 type Raffle @entity {
   id: ID!
   address: Bytes!
   raffleFactory: RaffleFactory!
+}
+
+type RaffleFactory @entity {
+  id: ID!
+  raffles: [Raffle!]! @derivedFrom (field: "raffleFactory")
 }
 
 type Mint @entity {
