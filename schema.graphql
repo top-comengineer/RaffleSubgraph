@@ -1,7 +1,8 @@
 type Raffle @entity {
-  id: ID!
+  id: Bytes!
   address: Bytes!
   raffleFactory: RaffleFactory
+  mint: [Mint!] @derivedFrom (field: "raffleId")
 }
 
 type RaffleFactory @entity {
@@ -13,7 +14,7 @@ type Mint @entity {
   id: ID!
   blockNumber: BigInt!
   timestamp: BigInt!
-  raffleId: ID!
+  raffleId: Raffle!
   amount: BigInt!
   tokenHolder: Bytes!
 }

@@ -4,7 +4,7 @@
   "repository": "https://github.com/top-comengineer/RaffleSubgraph",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "codegen": "graph codegen --output-dir src/types/",
+    "codegen": "graph codegen --output-dir src/generated/",
     "build": "graph build",
     "create-local": "graph create raffle --node http://127.0.0.1:8020",
     "deploy-local": "graph deploy raffle --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
