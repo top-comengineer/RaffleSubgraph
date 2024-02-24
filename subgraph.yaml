@@ -19,9 +19,8 @@ dataSources:
       entities:
         - RaffleFactory
         - Raffle
-        - Token
         - Mint
-        - Transaction
+        - Winners
       abis:
         - name: RaffleFactory
           file: ./abis/RaffleFactory.json
@@ -42,10 +41,10 @@ templates:
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
+        - RaffleFactory
         - Raffle
-        - Token
         - Mint
-        - Transaction
+        - Winners
       abis:
         - name: Raffle
           file: ./abis/Raffle.json
@@ -54,3 +53,28 @@ templates:
       eventHandlers:
         - event: TicketSold(indexed address,uint256)
           handler: handleTicketSold
+  - kind: ethereum/contract
+    name: ERC20
+    network: matic
+    source:
+      abi: ERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/core.ts
+      entities:
+        - RaffleFactory
+        - Raffle
+        - Mint
+        - Winners
+      abis:
+        - name: Raffle
+          file: ./abis/Raffle.json
+        - name: RaffleFactory
+          file: ./abis/RaffleFactory.json
+        - name: ERC20
+          file: ./abis/ERC20.json 
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
