@@ -27,4 +27,5 @@ type Winner @entity {
   amount: BigInt!
   buyer: Bytes!
   timestamp: BigInt!
+  tokenAddress: Bytes!
 }

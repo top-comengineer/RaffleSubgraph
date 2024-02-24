@@ -44,6 +44,7 @@ export function handleTransfer(event: Transfer): void {
     winner.raffleId = raffle.id
     winner.amount = event.params.value
     winner.buyer = event.params.to
+    winner.tokenAddress = event.address
     winner.save()
   }
 }
