@@ -53,6 +53,8 @@ templates:
       eventHandlers:
         - event: TicketSold(indexed address,uint256)
           handler: handleTicketSold
+        - event: WinnerChosen(uint256,uint256,indexed address)
+          handler: handlePickWinner
   - kind: ethereum/contract
     name: ERC20
     network: matic

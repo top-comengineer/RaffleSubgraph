@@ -97,6 +97,14 @@ export class Raffle extends Entity {
       "winner",
     );
   }
+
+  get pickWinner(): PickWinnerLoader {
+    return new PickWinnerLoader(
+      "Raffle",
+      this.get("id")!.toBytes().toHexString(),
+      "pickWinner",
+    );
+  }
 }
 
 export class RaffleFactory extends Entity {
@@ -372,6 +380,72 @@ export class Winner extends Entity {
   }
 }
 
+export class PickWinner extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save PickWinner entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type PickWinner must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("PickWinner", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): PickWinner | null {
+    return changetype<PickWinner | null>(store.get_in_block("PickWinner", id));
+  }
+
+  static load(id: string): PickWinner | null {
+    return changetype<PickWinner | null>(store.get("PickWinner", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get raffleId(): Bytes {
+    let value = this.get("raffleId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set raffleId(value: Bytes) {
+    this.set("raffleId", Value.fromBytes(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+}
+
 export class MintLoader extends Entity {
   _entity: string;
   _field: string;
@@ -405,6 +479,24 @@ export class WinnerLoader extends Entity {
   load(): Winner[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<Winner[]>(value);
+  }
+}
+
+export class PickWinnerLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): PickWinner[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<PickWinner[]>(value);
   }
 }
 
