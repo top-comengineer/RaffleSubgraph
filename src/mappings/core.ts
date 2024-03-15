@@ -56,6 +56,7 @@ export function handlePickWinner(event: WinnerChosen): void {
     pickWinner = new PickWinner(pickId)
     pickWinner.raffleId = raffle.id
     pickWinner.address = event.params.winner
+    pickWinner.blockNumber = event.block.number
     pickWinner.save()
   }
 }

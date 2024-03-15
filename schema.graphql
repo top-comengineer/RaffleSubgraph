@@ -35,4 +35,5 @@ type PickWinner @entity {
   id: ID!
   raffleId: Raffle!
   address: Bytes!
+  blockNumber: BigInt!
 }
